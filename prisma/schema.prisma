@@ -1,0 +1,48 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model cities {
+    id     String   @id @unique @default(uuid())
+    name   String
+    places places[]
+}
+
+model places {
+    id           String         @id @unique @default(uuid())
+    name         String
+    description  String?
+    image_url    String?
+    created_at   DateTime?      @default(now())
+    city_id      cities         @relation(fields: [citiesId], references: [id])
+    citiesId     String
+    place_scores place_scores[]
+}
+
+model criterias {
+    id           String         @id @unique @default(cuid())
+    name         String
+    place_scores place_scores[]
+}
+
+model place_scores {
+    id          String    @id @unique @default(cuid())
+    score       Float
+    place_id    places    @relation(fields: [placesId], references: [id])
+    criteria_id criterias @relation(fields: [criteriasId], references: [id])
+    placesId    String
+    criteriasId String
+}
+
+model user {
+    id         String    @id @unique @default(uuid())
+    email      String    @unique
+    name       String
+    password   String
+    created_at DateTime? @default(now())
+}
