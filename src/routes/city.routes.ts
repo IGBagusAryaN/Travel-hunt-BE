@@ -6,13 +6,13 @@ import {
   updateCity,
   deleteCity,
 } from '../controllers/city.controller'
-
+import { authenticate } from '../middlewares/auth';
 const router = express.Router()
 
-router.post('/', createCity)
-router.get('/', getAllCities)
-router.get('/:id', getCityById)
-router.put('/:id', updateCity)
-router.delete('/:id', deleteCity)
+router.post('/', authenticate, createCity)
+router.get('/', authenticate, getAllCities)
+router.get('/:id',authenticate, getCityById)
+router.put('/:id',authenticate, updateCity)
+router.delete('/:id',authenticate, deleteCity)
 
 export default router

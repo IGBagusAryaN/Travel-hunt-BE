@@ -7,12 +7,13 @@ import {
   deletePlace,
 } from '../controllers/places.controller'
 import upload from '../middlewares/upload';
+import { authenticate } from '../middlewares/auth';
 const router = express.Router()
 
-router.post('/', upload.single('image'), createPlace);
-router.get('/', getAllPlaces)
-router.get('/:id', getPlaceById)
-router.put('/:id', updatePlace)
-router.delete('/:id', deletePlace)
+router.post('/',authenticate, upload.single('image'), createPlace);
+router.get('/',authenticate, getAllPlaces)
+router.get('/:id',authenticate, getPlaceById)
+router.put('/:id',authenticate, updatePlace)
+router.delete('/:id',authenticate, deletePlace)
 
 export default router
