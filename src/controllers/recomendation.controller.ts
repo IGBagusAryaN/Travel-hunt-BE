@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Fungsi untuk menghitung matriks perbandingan dan bobot kriteria
+
 const calculateComparisonMatrix = async () => {
   const comparisons = await prisma.criteria_comparisons.findMany();
 

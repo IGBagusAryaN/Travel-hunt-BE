@@ -9,7 +9,7 @@ interface DecodedToken {
 export const authenticate = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!authHeader) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 

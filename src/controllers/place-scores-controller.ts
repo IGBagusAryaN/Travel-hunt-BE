@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Get all place scores
 export const getAllPlaceScores = async (_req: Request, res: Response) => {
   try {
     const data = await prisma.place_scores.findMany({
@@ -14,11 +13,10 @@ export const getAllPlaceScores = async (_req: Request, res: Response) => {
     });
     res.json(data);
   } catch (error) {
-    res.status(500).json({ message: 'Gagal mengambil data', error });
+    res.status(500).json({ message: 'Failed to fetch data', error });
   }
 };
 
-// Get score by ID
 export const getPlaceScoreById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -30,15 +28,14 @@ export const getPlaceScoreById = async (req: Request, res: Response) => {
       },
     });
 
-    if (!score) return res.status(404).json({ message: 'Data tidak ditemukan' });
+    if (!score) return res.status(404).json({ message: 'Data not found' });
 
     res.json(score);
   } catch (error) {
-    res.status(500).json({ message: 'Gagal mengambil data', error });
+    res.status(500).json({ message: 'Failed to fetch data', error });
   }
 };
 
-// Create score
 export const createPlaceScore = async (req: Request, res: Response) => {
   try {
     const { score, placesId, criteriasId } = req.body;
@@ -51,11 +48,10 @@ export const createPlaceScore = async (req: Request, res: Response) => {
     });
     res.status(201).json(data);
   } catch (error) {
-    res.status(500).json({ message: 'Gagal menambahkan data', error });
+    res.status(500).json({ message: 'Failed to create data', error });
   }
 };
 
-// Update score
 export const updatePlaceScore = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -71,17 +67,16 @@ export const updatePlaceScore = async (req: Request, res: Response) => {
     });
     res.json(data);
   } catch (error) {
-    res.status(500).json({ message: 'Gagal mengupdate data', error });
+    res.status(500).json({ message: 'Failed to update data', error });
   }
 };
 
-// Delete score
 export const deletePlaceScore = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     await prisma.place_scores.delete({ where: { id } });
-    res.json({ message: 'Berhasil menghapus data' });
+    res.json({ message: 'Data deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Gagal menghapus data', error });
+    res.status(500).json({ message: 'Failed to delete data', error });
   }
 };
