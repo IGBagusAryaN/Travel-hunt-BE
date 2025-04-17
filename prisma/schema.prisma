@@ -25,9 +25,11 @@ model places {
 }
 
 model criterias {
-    id           String         @id @unique @default(cuid())
-    name         String
-    place_scores place_scores[]
+    id                   String                 @id @unique @default(cuid())
+    name                 String
+    criteriaComparisonsA criteria_comparisons[] @relation("CriteriaA")
+    criteriaComparisonsB criteria_comparisons[] @relation("CriteriaB")
+    place_scores         place_scores[]
 }
 
 model place_scores {
@@ -37,6 +39,15 @@ model place_scores {
     criteria_id criterias @relation(fields: [criteriasId], references: [id])
     placesId    String
     criteriasId String
+}
+
+model criteria_comparisons {
+    id          String    @id @default(cuid())
+    criteria_a  criterias @relation("CriteriaA", fields: [criteriaAId], references: [id])
+    criteriaAId String
+    criteria_b  criterias @relation("CriteriaB", fields: [criteriaBId], references: [id])
+    criteriaBId String
+    value       Float
 }
 
 model user {
