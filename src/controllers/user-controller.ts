@@ -24,7 +24,10 @@ export const getCurrentUser = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.json(user);
+    res.status(200).json({
+      message: 'get current user data SUCCESS',
+      user: user,
+    });
   } catch (error) {
     console.error('Error getting current user:', error);
     res.status(500).json({ message: 'Internal server error' });
