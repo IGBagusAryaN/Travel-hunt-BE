@@ -4,6 +4,6 @@ import { authenticate } from '../middlewares/auth';
 
 const router = express.Router();
 
-router.get('/',authenticate, getRecommendations);
+router.post('/:city', getRecommendations);
 
 export default router;
