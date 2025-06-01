@@ -1,0 +1,40 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDataFromAPI = getDataFromAPI;
+const axios_1 = __importDefault(require("axios"));
+// Fungsi untuk mengambil data dari API eksternal
+async function getDataFromAPI(city) {
+    try {
+        const response = await axios_1.default.get('https://api.npoint.io/db6cc90a33fb548dc669');
+        const data = response.data;
+        console.log("status:", response.status);
+        console.log("headers:", response.headers);
+        console.log("data:", JSON.stringify(data, null, 2));
+        // Cari kota berdasarkan nama
+        const foundCity = data.find(item => item.city.toLowerCase() === city.toLowerCase());
+        if (!foundCity) {
+            throw new Error(`City "${city}" not found`);
+        }
+        // Validasi struktur setiap tempat wisata
+        foundCity.places.forEach((place) => {
+            if (!place.place_scores || !Array.isArray(place.place_scores)) {
+                console.warn(`Warning: Tempat dengan id ${place.id} tidak memiliki place_scores array`);
+                place.place_scores = []; // Hindari error saat proses AHP
+            }
+        });
+        return foundCity;
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            console.error('Error fetching data from API:', error.message);
+            throw new Error('Unable to fetch data');
+        }
+        else {
+            console.error('Unknown error:', error);
+            throw new Error('An unknown error occurred');
+        }
+    }
+}

@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_routes_1 = __importDefault(require("./auth.routes"));
+const city_routes_1 = __importDefault(require("./city.routes"));
+const places_routes_1 = __importDefault(require("./places.routes"));
+const criterias_routes_1 = __importDefault(require("./criterias.routes"));
+const place_scores_routes_1 = __importDefault(require("./place-scores-routes"));
+const recomendation_routes_1 = __importDefault(require("./recomendation.routes"));
+const user_routes_1 = __importDefault(require("./user.routes"));
+const router = (0, express_1.Router)();
+router.use("/auth", auth_routes_1.default);
+router.use("/city", city_routes_1.default);
+router.use("/places", places_routes_1.default);
+router.use("/criterias", criterias_routes_1.default);
+router.use("/place-scores", place_scores_routes_1.default);
+router.use("/recommendations", recomendation_routes_1.default);
+router.use("/users", user_routes_1.default);
+exports.default = router;
