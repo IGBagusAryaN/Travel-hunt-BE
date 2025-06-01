@@ -3,7 +3,7 @@ import authRoutes from "./auth.routes";
 import cityRoutes from "./city.routes";
 import placesRoutes from "./places.routes";
 import criteriasRoutes from "./criterias.routes";
-import placeScoresRoutes from "./place-scores-routes";
+import placeScoresRoutes from "./place-scores.routes";
 import recommendationsRoutes from "./recomendation.routes";
 import userRoutes from "./user.routes";
 const router = Router();
