@@ -21,7 +21,7 @@ interface City {
 // Fungsi untuk mengambil data dari API eksternal
 async function getDataFromAPI(city: string): Promise<City> {
   try {
-    const response = await axios.get('https://api.npoint.io/db6cc90a33fb548dc669');
+    const response = await axios.get('https://api.npoint.io/7ecb5044502ea4e0d895');
     const data = response.data as City[];
 
     console.log("status:", response.status);
